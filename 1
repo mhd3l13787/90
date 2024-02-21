@@ -1,0 +1,21 @@
+
+gpg --show-keys /etc/apt/keyrings/chainflip.gpg
+
+echo "deb [signed-by=/etc/apt/keyrings/chainflip.gpg] https://repo.chainflip.io/perseverance/ focal main" | sudo tee /etc/apt/sources.list.d/chainflip.list
+
+sudo apt-get update
+sudo apt-get install -y chainflip-cli chainflip-node chainflip-engine
+
+sudo mkdir /etc/chainflip/keys
+
+echo -n "xxxxxxxxxxxxxx" |  sudo tee /etc/chainflip/keys/ethereum_key_file
+
+chainflip-node key generate   copy all to notepad
+
+SECRET_SEED=xxxxxxxxxxxx
+
+echo -n "${SECRET_SEED:2}" | sudo tee /etc/chainflip/keys/signing_key_file
+
+sudo chainflip-node key generate-node-key --file /etc/chainflip/keys/node_key_file
+
+cat /etc/chainflip/keys/node_key_file
